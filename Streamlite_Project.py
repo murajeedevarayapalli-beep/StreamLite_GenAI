@@ -28,7 +28,22 @@ st.write(
 
 
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+def get_api_key(name):
+
+    # Streamlit Cloud
+    try:
+        value = st.secrets.get(name)
+
+        if value:
+            return value
+    except Exception:
+        pass
+
+    # Local Windows environment variable
+    return os.getenv(name)
+
+
+OPENAI_API_KEY = get_api_key("OPENAI_API_KEY")
 GEMINI_API_KEY = ""
 
 
